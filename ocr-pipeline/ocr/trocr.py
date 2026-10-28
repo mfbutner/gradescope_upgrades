@@ -24,5 +24,5 @@ def run(image_url: str) -> str:
     image = Image.open(io.BytesIO(resp.content)).convert("RGB")
 
     pixel_values = processor(images=image, return_tensors="pt").pixel_values
-    generated_ids = model.generate(pixel_values)
+    generated_ids = model.generate(pixel_values, max_new_tokens=128)
     return processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
