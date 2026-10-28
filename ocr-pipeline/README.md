@@ -21,13 +21,15 @@ cp .env.example .env   # only needed for the azure engine
 | Test file | What it checks | Runs real OCR? | Where to run |
 |---|---|---|---|
 | `tests/test_app.py` | The API is wired correctly: `POST /ocr` with `engine: trocr` calls `trocr.run` and returns its text. `trocr.run` is mocked. | No | Anywhere (about 1 second) |
-| `tests/test_trocr_integration.py` | The real TrOCR model reads every image in `tests/images/`. Fails if the output is empty. If a `.txt` with the same name sits next to an image (e.g. `hello_world.txt` for `hello_world.jpg`), it also fails when the text is less than 60% similar to it. | Yes | Colab (downloads a ~1.3GB model) |
+| `tests/test_trocr_integration.py` | The real TrOCR model reads every image in `tests/images/`. Fails if the output is empty. If a `.txt` with the same name sits next to an image (e.g. `hello_world.txt` for `hello_world.jpg`), it also fails when the text is less than 90% similar to it. | Yes | Colab (downloads a ~1.3GB model) |
 
 ### Run the real TrOCR tests (Colab)
 
 Add images to `tests/images/` (optionally with a `.txt` of the expected text), push the branch, then in a Colab cell:
 
 ```python
+%cd /content
+!rm -rf repo
 !pip install -q uv
 !git clone -b alex-ocr-pipeline https://github.com/mfbutner/gradescope_upgrades repo
 %cd repo/ocr-pipeline
