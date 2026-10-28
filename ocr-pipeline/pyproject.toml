@@ -8,9 +8,13 @@ dependencies = [
     "pillow>=13.0.0",
     "pydantic>=2.14.1",
     "requests>=2.34.2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.optional-dependencies]
+trocr = [
     "torch>=2.14.1",
     "transformers>=5.21.0",
-    "uvicorn[standard]>=0.54.0",
 ]
 
 [dependency-groups]
@@ -18,3 +22,8 @@ dev = [
     "httpx>=0.28.1",
     "pytest>=9.1.1",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-m 'not trocr'"
+markers = ["trocr: runs the real TrOCR model (heavy; use in Colab with --extra trocr)"]

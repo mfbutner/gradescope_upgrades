@@ -2,7 +2,6 @@ import io
 
 import requests
 from PIL import Image
-from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 
 _MODEL_NAME = "microsoft/trocr-base-handwritten"
 
@@ -12,6 +11,7 @@ _model = None
 def _load():
     global _processor, _model
     if _model is None:
+        from transformers import TrOCRProcessor, VisionEncoderDecoderModel
         _processor = TrOCRProcessor.from_pretrained(_MODEL_NAME)
         _model = VisionEncoderDecoderModel.from_pretrained(_MODEL_NAME)
     return _processor, _model
